@@ -144,20 +144,30 @@ const fenomenler = [
 
 
 /* Görev 1 (otomatik kontrol testi yapılmayacak):
-Aşağıdakileri konsolda gösterim (console.log) işlemi gerçekleştirerek, yukarıda verilen fenomenler dizisindeki verilere erişim alıştırması yapın:
+Aşağıdakileri konsolda gösterim (console.log) işlemi gerçekleştirerek, yukarıda verilen fenomenler dizisindeki verilere 
+erişim alıştırması yapın:
 
 (işlev yazmanıza gerek yok) */
 
 //(1) Dizideki ilk fenomen (0. dizin) profil (profile) adı
-
+let profiladi = fenomenler.find((profiller) => profiller.number === 1 ) ;
+console.log(profiladi.profile) ;
 
 //(2) Dizideki üçüncü fenomenin (2. dizin) takipçi (followers) sayısı
-
+let takipciSayisi = fenomenler.find((takipci) => takipci.number === 3 ) ;
+console.log(takipciSayisi.followers) ;
 
 /* Görev 2 (otomatik kontrol testi yapılmayacak):
 (işlev yazmanıza gerek yok)
-Fenomenler dizisinde bir yazım hatası var 😱 7. sıradaki fenomen 'Justin Bieber' ın soyismi 'Biber' olarak yanlış yazılmış. Bu sorunu düzeltin ve çalışmanızı kontrol etmek için console.log() yapın.
-
+Fenomenler dizisinde bir yazım hatası var 😱 7. sıradaki fenomen 'Justin Bieber' ın soyismi 'Biber' olarak yanlış yazılmış.
+Bu sorunu düzeltin ve çalışmanızı kontrol etmek için console.log() yapın. */
+//fenomenler.profile[6] = 'Justin Bieber' ;
+fenomenler.forEach((element, index) => {
+  if(fenomenler[index].profile === 'Justin Biber') {
+    fenomenler[index].profile = 'Justin Bieber';
+  }
+});
+console.log(fenomenler[6].profile)
 
 /*  Görev 3:
 Aşağıdaki işlemleri yapmak için indekseGoreFenomen işlevini kullanın:
@@ -168,9 +178,10 @@ Aşağıdaki işlemleri yapmak için indekseGoreFenomen işlevini kullanın:
 NOT: DÖNDÜĞÜNÜZ DİZİN YUKARIDAKİ BİÇİMLE EŞLEŞMESİ GEREKİR, YA DA TESTİ GEÇMEYECEKTİR!
 ÖRNEK: fenomenler dizisi ve 3 sayısı ile indekseGoreFenomen çağrılırsa, `3. indekste bulunan fenomen: Leo Messi' */
 
-function indekseGoreFenomen(/*kod*/) {
-  /*kod*/
+function indekseGoreFenomen(fenomenler, index) { //sayi = fenomenler.number
+    return console.log("3. indekste bulunan fenomen : " + fenomenler[index].profile)
 }
+indekseGoreFenomen(fenomenler, 3)
 
 
 
@@ -182,9 +193,16 @@ Aşağıdakileri yapmak için profilListesi'ni kullanın:
 🌟 Dönüş ÖRNEĞİ: ["Instagram", "Cristiano Ronaldo", "Kylie"....]
 */
 
-function profilListesi(/*kod*/) {
+function profilListesi(fenomenler) {
+fenomenCopy = [...fenomenler];
+//console.log(fenomenCopy) ;
   /*kod*/
+  fenomenCopy.forEach((element, index) => {
+      console.log(fenomenCopy[index].profile);
+  });
 }
+profilListesi(fenomenler) ;
+
 
 
 
@@ -197,16 +215,19 @@ Aşağıdakileri yapmak için fenomenSil'i kullanın:
 5. Ortaya çıkan diziyi döndürün
 
 ÖRNEK: fenomenSil işlevi fenomenler dizisi ve 0 indeks sayısı ile çağrılırsa, veri kümemizden 'Instagram' kaldırılmış olarak döndürür. */
-function fenomenSil(/*kod*/) {
-  /*kod*/
+function fenomenSil(fenomenler,index) {
+  fenomenlerCopy= [...fenomenler] ;
+  delete fenomenlerCopy[index];
+  return console.log(fenomenlerCopy);
 }
-
+fenomenSil(fenomenler,6);
 
 
 /* Görev 6:
 Aşağıdakileri yapmak için fenomenEkle'i kullanın:
 1. ilk parametre olarak fenomenler dizisini alın
-2. İKİNCİ, ÜÇÜNCÜ, DÖRDÜNCÜ, BEŞİNCİ ve ALTINCI parametre olarak sırasıyla bir sırano (number), bir profil ismi (profile), takipçi sayısı (followers), gönderim sayısı  (posts) ve bir platform adı (platform) alın.
+2. İKİNCİ, ÜÇÜNCÜ, DÖRDÜNCÜ, BEŞİNCİ ve ALTINCI parametre olarak sırasıyla bir sırano (number), bir profil ismi (profile), 
+takipçi sayısı (followers), gönderim sayısı  (posts) ve bir platform adı (platform) alın.
 3. fenomenler dizisini bir kopyasını oluşturun.
 4. Aşağıdaki formatta bir nesne oluşturun:
   {
@@ -220,9 +241,20 @@ Aşağıdakileri yapmak için fenomenEkle'i kullanın:
 
 ÖRNEK: fenomenEkle(fenomenler, 6, "Workintech", 10000000, 2022, "Instagram") çağrıldığında dizinin sonuna yukarıdaki nesne en sona eklenerek yeni fenomenler dizisini döndürmelidir. */
 
-function fenomenEkle(/*kod*/) {
-  /*kod*/
+function fenomenEkle(fenomenler,number,profile,followers,posts,platform) {
+fenomenCopy =  [...fenomenler] ;
+let fenomen = {
+    "number": number,
+    "profile": profile,
+    "followers": followers,
+    "posts": posts,
+    "platform": platform
 }
+fenomenCopy.push(fenomen);
+return console.log(fenomenCopy) ;
+}
+
+fenomenEkle(fenomenler, 6, "Workintech", 10000000, 2022, "Instagram")
 
 
 /* Görev 7:
@@ -233,10 +265,16 @@ Aşağıdakileri yapmak için enFenomenler'yi kullanın:
 ÖRNEK: enFenomenler(fenomenler) çağrıldığında sonuç olarak ["Instagram", "Cristiano Ronaldo", ... "Khabane lame"] dönemelidir
 */
 
-function enFenomenler(/*kod*/) {
-  /*kod*/
+function enFenomenler(fenomenler) {
+  let newFenomen =[];
+  fenomenler.forEach((fenomen) => {
+  if(fenomen.followers >100000000 ) {
+    newFenomen.push(fenomen) ;
+  }
+  })
+ return console.log(newFenomen) ;
 }
-
+enFenomenler(fenomenler)
 
 /* Görev 8:
 Aşağıdakileri yapmak için fenomenGonderimSayisi'nı kullanın:
@@ -247,10 +285,13 @@ Aşağıdakileri yapmak için fenomenGonderimSayisi'nı kullanın:
 ÖRNEK: fenomenGonderimSayisi(fenomenler, 'Will Smith') çağrıldığında "136" dönmelidir
 */
 
-function fenomenGonderimSayisi(/*kod*/){
-  /*kod*/
+function fenomenGonderimSayisi(fenomenler,profile){
+fenomenler.forEach((fenomen) => {
+  if(fenomen.profile == profile){
+    return console.log(fenomen.posts)  
+  }}) 
 }
-
+fenomenGonderimSayisi(fenomenler, 'Will Smith') ;
 
 
 /* Görev 9:
@@ -264,9 +305,22 @@ Not: Gönderi sayısı belli olmayan (NA) hesaba katmayın.
 Örnek: platformaGoreCokGonderiYapanFenomen(fenomenler, 'TikTok') çağrıldığında "charli damelio" dönmelidir
 */
 
-function platformaGoreCokGonderiYapanFenomen(/*kod*/){
-  /*kod*/
+function platformaGoreCokGonderiYapanFenomen(fenomenler,platform){
+  var list = [];
+  fenomenler.forEach((fenomen) => {
+    if(fenomen.platform === platform){
+        list.push(fenomen.profile, fenomen.posts)
+    }})
+    var maxValue = "";
+    for(var i = 0; i < list.length; i++){
+      if(maxValue == null || list[1] > maxValue){
+        maxValue = list[0]
+      }
+    }
+  return console.log(maxValue)
 }
+
+platformaGoreCokGonderiYapanFenomen(fenomenler, 'TikTok')
 
 
 
